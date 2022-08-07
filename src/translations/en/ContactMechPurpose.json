@@ -1,0 +1,38 @@
+{
+    "contactMechTypeEnumId": {
+        "contactMechPurposeId": "text"
+    },
+    "CmtPostalAddress":{
+        "PostalPrimary": "Primary",
+        "PostalShippingDest":	"Shipping Destination",
+        "PostalShippingOrigin":	"Shipping Origin",
+        "PostalBilling":	"Billing (AP)",
+        "PostalPayment":	"Payment (AR)",
+        "PostalTax":	"Tax",
+        "PostalGeneral":	"General Correspondence",
+        "PostalPurchReturn":	"Purchase Return",
+        "PostalPrevious":	"Previous",
+        "PostalHome":	"Home",
+        "PostalWork":	"Work",
+        "PostalRetailStore":	"Retail Store"
+    },
+    "CmtTelecomNumber":{
+        "PhonePrimary": "Primary",
+        "PhoneShippingDest": "Shipping Destination",
+        "PhoneShippingOrigin": "Shipping Origin",
+        "PhoneShippingFax": "Shipping Fax",
+        "PhoneBilling": "Billing (AP)",
+        "PhoneBillingFax": "Billing Fax (AP)",
+        "PhonePayment": "Payment (AR)",
+        "PhonePaymentFax": "Payment Fax (AR)",
+        "PhoneTax": "Tax",
+        "PhoneDid": "Direct Inward Dialing",
+        "PhoneHome": "Home",
+        "PhoneWork": "Work",
+        "PhoneFax": "Fax",
+        "PhoneMobile": "Mobile",
+        "PhoneAssistant": "Assistant",
+        "PhoneQuick": "Quick Calls",
+        "PhoneRetailStore": "Retail Store"
+    }
+}

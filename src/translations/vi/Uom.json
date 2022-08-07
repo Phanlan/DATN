@@ -1,0 +1,17 @@
+{
+    "UT_WEIGHT_MEASURE":{
+        "WT_dr_avdp": "Dram (avdp)",
+        "WT_gr": "Grain",
+        "WT_kg": "Kg",
+        "WT_g": "Gam",
+        "WT_mg": "Milligram",
+        "WT_oz": "Ounce (avdp)",
+        "WT_oz_tr": "Ounce (troy)",
+        "WT_dwt": "Pennyweight",
+        "WT_lb": "Pound (avdp)",
+        "WT_st": "Stone",
+        "WT_lt": "Ton (long or British)",
+        "WT_mt": "Ton (metric)",
+        "WT_sh_t": "Ton (short)"
+    }
+}

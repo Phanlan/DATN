@@ -1,0 +1,38 @@
+{
+    "contactMechTypeEnumId": {
+        "contactMechPurposeId": "text"
+    },
+    "CmtPostalAddress":{
+        "PostalPrimary": "Chính",
+        "PostalShippingDest": "Điểm cuối của việc vận chuyển",
+        "PostalShippingOrigin":	"Điểm đầu của việc vận chuyển",
+        "PostalBilling": "Thanh toán (Phải trả)",
+        "PostalPayment": "Thanh toán (Phải thu)",
+        "PostalTax": "Thuế",
+        "PostalGeneral": "General Correspondence",
+        "PostalPurchReturn": "Trả lại hàng mua",
+        "PostalPrevious": "Trước",
+        "PostalHome": "Địa chỉ bưu chính Nhà riêng",
+        "PostalWork": "Địa chỉ bưu chính công việc",
+        "PostalRetailStore": "Retail Store"
+    }, 
+    "CmtTelecomNumber":{
+        "PhonePrimary": "Chính",
+        "PhoneShippingDest": "Điểm đích vận chuyển",
+        "PhoneShippingOrigin": "Điểm xuất phát vận chuyển",
+        "PhoneShippingFax": "Fax thông tin vận chyển",
+        "PhoneBilling": "Bảng kê thanh toán (Phải trả)",
+        "PhoneBillingFax": "Fax bảng kê thanh toán (Phải trả)",
+        "PhonePayment": "Thanh toán (Phải thu)",
+        "PhonePaymentFax": "Fax thanh toán (Phải thu)",
+        "PhoneTax": "Thuế",
+        "PhoneDid": "Quay số trực tiếp",
+        "PhoneHome": "Điện thoại nhà riêng",
+        "PhoneWork": "Điện thoại công việc",
+        "PhoneFax": "Số fax",
+        "PhoneMobile": "Điện thoại di động",
+        "PhoneAssistant": "Trợ lý",
+        "PhoneQuick": "Các cuộc gọi nhanh",
+        "PhoneRetailStore": "Cửa hàng bán lẻ"
+    }
+}

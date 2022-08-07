@@ -1,0 +1,13 @@
+{
+    "BOD": "Director",
+    "SALES_MNG": "Sales Manager",
+    "SALES_EMPLOYEE": "Sales Employee",
+    "LOG_MNG": "Logistics Manager",
+    "LOG_Shipper": "Shipper",
+    "ACC_MNG": "Accounting Manager",
+    "HR_MNG": "Human Resources Manager",
+    "SALES_ADMIN": "Sales Admin",
+    "SUP_MNG": "Supplier Manager",
+    "CAISSIER": "Caissier group",
+    "PUR_MNG": "Purchasing Manager"
+}

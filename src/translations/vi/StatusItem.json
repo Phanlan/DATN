@@ -1,0 +1,22 @@
+{
+    "OrderHeader":{
+        "OrderOpen": "Mới tạo",
+        "OrderHold": "Đã giữ",
+        "OrderApproved": "Đã duyệt",
+        "OrderCompleted": "Đã hoàn thành",
+        "OrderCancelled": "Đã huỷ",
+        "OrderBeingChanged": "Đang được thay đổi",
+        "OrderPlaced": "Do khách hàng đặt"
+    },
+    "Shipment":{
+        "ShipInput":	"Input",
+        "ShipScheduled":	"Scheduled",
+        "ShipPicked":	"Picked",
+        "ShipPacked":	"Packed",
+        "ShipShipped":	"Shipped",
+        "ShipDelivered":	"Delivered",
+        "ShipRejected":	"Rejected",
+        "ShipCancelled":	"Cancelled"
+    }
+    
+}

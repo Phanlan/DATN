@@ -1,0 +1,13 @@
+{
+    "BOD": "Giám đốc",
+    "SALES_MNG": "Quản lý nhân viên bán hàng",
+    "SALES_EMPLOYEE": "Nhân viên bán hàng",
+    "LOG_MNG": "Quản lý vận kho",
+    "LOG_Shipper": "Nhân viên giao hàng",
+    "ACC_MNG": "Quản lý kế toán",
+    "HR_MNG": "Quản lý nhân sự",
+    "SALES_ADMIN": "Quản trị viên bán hàng",
+    "SUP_MNG": "Quản lý nhà cung cấp",
+    "CAISSIER": "Nhân viên thu nhân",
+    "PUR_MNG": "Quản lý mua hàng"
+}

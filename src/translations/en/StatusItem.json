@@ -1,0 +1,22 @@
+{
+    "OrderHeader":{
+        "OrderOpen": "Open (Tentative)",
+        "OrderHold": "Held",
+        "OrderApproved": "Approved",
+        "OrderCompleted": "Order Completed",
+        "OrderCancelled": "Order Cancelled",
+        "OrderBeingChanged": "Being Changed",
+        "OrderPlaced": "Placed by Customer"
+    },
+    "Shipment":{
+        "ShipInput":	"Input",
+        "ShipScheduled":	"Scheduled",
+        "ShipPicked":	"Picked",
+        "ShipPacked":	"Packed",
+        "ShipShipped":	"Shipped",
+        "ShipDelivered":	"Delivered",
+        "ShipRejected":	"Rejected",
+        "ShipCancelled":	"Cancelled"
+    }
+    
+}

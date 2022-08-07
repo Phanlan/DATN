@@ -1,0 +1,20 @@
+{
+  "bracketSpacing": false,
+  "useTabs": false,
+  "singleQuote": true,
+  "arrowParens": "always",
+  "trailingComma": "all",
+  "endOfLine": "auto",
+  "overrides": [
+    {
+      "files": [
+        "*.js",
+        "*.jsx"
+      ],
+      "options": {
+        "printWidth": 120,
+        "tabWidth": 2
+      }
+    }
+  ]
+}
