@@ -1,9 +1,7 @@
 import React, {forwardRef} from 'react';
 import { DataTable } from "primereact/datatable";
-import { useTranslation } from 'react-i18next';
 
 const DataTableTemplate = (props, ref) => {
-    const { t } = useTranslation('common');
 
     return (
         <DataTable
@@ -12,8 +10,8 @@ const DataTableTemplate = (props, ref) => {
             ref={ref}
             paginator
             paginatorTemplate="RowsPerPageDropdown CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
-            currentPageReportTemplate={t('datatable.currentPageReportTemplate')}
-            emptyMessage={t('datatable.emptyMessage')}
+            currentPageReportTemplate='Hiển thị {first} - {last} trên {totalRecords}'
+            emptyMessage='Chưa có dữ liệu'
         />
     );
 }

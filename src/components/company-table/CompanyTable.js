@@ -1,306 +1,168 @@
 import { Column } from 'primereact/column';
-import { DataTable } from 'primereact/datatable';
-import React, { Component, useEffect, useState } from 'react';
-import CompanyService  from './CompanyService'
-import { NumberFormat } from '../utils/NumberFormat'
+import { DataTable } from '../utils';
+import { Toolbar } from 'primereact/toolbar';
+import React, { useContext, useEffect, useState } from 'react';
+import CompanyService  from './CompanyService';
+import { NumberFormat } from '../../components/utils/NumberFormat';
 import './CompanyTable.css';
-import "primeicons/primeicons.css";
-import "primereact/resources/themes/saga-blue/theme.css";
-import "primereact/resources/primereact.css";
-import "primeflex/primeflex.css";
-// import { toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+import { Button } from 'primereact/button';
+import { AddCompany } from './AddCompany';
+import { ToastContext } from '../../App';
+import { Loading } from '../../components/common/Loading';
+import { confirmDialog } from 'primereact/confirmdialog';
 
 export const  CompanyTable=() =>  {
     const [companies, setCompanies] = useState([]);
-
-    // isChange = (event) => {
-    //     const name = event.target.name;
-    //     const value = event.target.value;
-    //     console.log(name);
-    //     console.log(value);
-    //     this.setState({
-    //         [name]: value
-    //     })
-    // }
-    // changeButton = (id) => {
-    //     if (id === 0) {
-    //         return <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={(name, taxCode, authorizedCapital, fieldOfActivity, floor, hotline, area, numberOfEmployee) => this.addNewCompany(
-    //             name = this.state.name,
-    //             taxCode = this.state.taxCode,
-    //             authorizedCapital = this.state.authorizedCapital,
-    //             fieldOfActivity = this.state.fieldOfActivity,
-    //             floor = this.state.floor,
-    //             hotline = this.state.hotline,
-    //             area = this.state.area,
-    //             numberOfEmployee = this.state.numberOfEmployee)
-    //         }>Add New</button>
-    //     } else {
-    //         return <button type="button" className="btn btn-warning" data-bs-dismiss="modal" onClick={(id, name, taxCode, authorizedCapital, fieldOfActivity, floor, hotline, area, numberOfEmployee) => this.editCompany(
-    //             id = this.state.id,
-    //             name = this.state.name,
-    //             taxCode = this.state.taxCode,
-    //             authorizedCapital = this.state.authorizedCapital,
-    //             fieldOfActivity = this.state.fieldOfActivity,
-    //             floor = this.state.floor,
-    //             hotline = this.state.hotline,
-    //             area = this.state.area,
-    //             numberOfEmployee = this.state.numberOfEmployee)}>Update</button>
-    //     }
-    // }
-
-
-    // getName = (nameLike) => {
-    //     const value = nameLike.target.value;
-    //     // console.log(name);
-    //     // console.log(value);
-    //     this.setState({
-    //         name: value
-    //     })
-
-    // }
-
-
-    // searchName = () => {
-    //     // console.log(value);
-    //     // console.log(this.state)
-    //     CompanyService.searchByName(this.state.name).then((response) => {
-    //         this.setState({ companies: response.data.data })
-    //     });
-    // }
-
-    // addNewCompany = (name, taxCode, authorizedCapital, fieldOfActivity, floor, hotline, area, numberOfEmployee) => {
-    //     if (name === "" || taxCode == "" || authorizedCapital === "" || fieldOfActivity === "" || floor === "" || hotline === "" || area === "" || numberOfEmployee === "") {
-    //         toast.error('Please fill all the empty!!')
-    //     }
-    //     else {
-    //         var company = {};
-    //         company.name = name;
-    //         company.taxCode = taxCode;
-    //         company.authorizedCapital = parseFloat(authorizedCapital);
-    //         company.fieldOfActivity = fieldOfActivity;
-    //         company.floor = floor;
-    //         company.hotline = hotline;
-    //         company.area = parseFloat(area);
-    //         company.numberOfEmployee = parseInt(numberOfEmployee);
-    //         console.log(company)
-    //         CompanyService.createCompany(company).then(() => {
-    //             this.componentDidMount();
-    //         })
-    //         toast.success('Added Company successfully!!!');
-    //         this.setState({
-    //             id: 0,
-    //             name: "",
-    //             taxCode: "",
-    //             authorizedCapital: 0.0,
-    //             fieldOfActivity: "",
-    //             floor: "",
-    //             hotline: "",
-    //             area: 0.0,
-    //             numberOfEmployee: 0
-    //         });
-    //     }
-    // }
-
-    // editCompany = (id, name, taxCode, authorizedCapital, fieldOfActivity, floor, hotline, area, numberOfEmployee) => {
-    //     var company = {};
-    //     company.id = parseInt(id);
-    //     company.name = name;
-    //     company.taxCode = taxCode;
-    //     company.authorizedCapital = parseFloat(authorizedCapital);
-    //     company.fieldOfActivity = fieldOfActivity;
-    //     company.floor = floor;
-    //     company.hotline = hotline;
-    //     company.area = parseFloat(area);
-    //     company.numberOfEmployee = parseInt(numberOfEmployee);
-    //     CompanyService.updateCompany(company.id, company).then(() => {
-    //         this.componentDidMount();
-    //     })
-    //     toast.info('Updated Company successfully!!!');
-    //     this.setState({
-    //         id: 0,
-    //         name: "",
-    //         taxCode: "",
-    //         authorizedCapital: 0.0,
-    //         fieldOfActivity: "",
-    //         floor: "",
-    //         hotline: "",
-    //         area: 0.0,
-    //         numberOfEmployee: 0
-    //     });
-    // }
-
-    // getCompany = (company) => {
-    //     this.setState({
-    //         id: company.id,
-    //         name: company.name,
-    //         taxCode: company.taxCode,
-    //         authorizedCapital: company.authorizedCapital,
-    //         fieldOfActivity: company.fieldOfActivity,
-    //         floor: company.floor,
-    //         hotline: company.hotline,
-    //         area: company.area,
-    //         numberOfEmployee: company.numberOfEmployee
-    //     });
-    // }
-
-    // deleteCompany = (id) => {
-    //     CompanyService.deleteCompany(parseInt(id)).then(() => {
-    //         this.componentDidMount();
-    //     });
-    //     toast.error('Deleted Company successfully!!!');
-    // }
-
-    // componentDidMount() {
-    //     CompanyService.getAllCompany().then((response) => {
-    //         this.setState({ companies: response.data.data })
-    //     })
-    // }
+    const [displayCompanyNew, setDisplayCompanyNew] = useState(false);
+    const toast = useContext(ToastContext);
+    const [flagChange, setFlagChange] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [loadingPage, setLoadingPage] = useState(false);
+    const [isUpdate, setIsUpdate] = useState(false);
+    const [companyToUpdate, setCompanyToUpdate] = useState(null);
     
     useEffect(() => {
-        CompanyService.getAllCompany().then((response) => {
-            setCompanies(response.data.data)
-        })
+        try{
+            setLoading(true);
+            CompanyService.getAllCompany().then((response) => {
+                setCompanies(response.data.data)
+            })
+        }catch(error) {
+            toast.current.show({
+                severity: "error",
+                summary: 'error',
+                detail: error?.response?.data?.errors,
+                life: 5000,
+            });
+        }finally{
+            setLoading(false)
+        }
         
-    }, [])
+    }, [flagChange]) // eslint-disable-line react-hooks/exhaustive-deps
+
     const numberBody = (data, props) => {
         return(
             <NumberFormat value={Number(data[props.field])} />
         )
     }
+
+    const leftContents = (
+        <>
+            <h5 className='p-m-0'>Danh sách công ty</h5>
+        </>
+    );
+
+    const rightContents = (
+        <>
+            <Button
+            label='Thêm mới'
+            icon="pi pi-plus"
+            className="p-button-outlined p-mr-2"
+            onClick={() => {setDisplayCompanyNew(true);
+                setIsUpdate(false);
+                setCompanyToUpdate(null)}}
+            />
+        </>
+    );
+
+    const handleHideCompanyNewDialog = () => {
+        setDisplayCompanyNew(false);
+    }
+    const editCompany = (company) => {
+        setCompanyToUpdate({ ...company });
+        setDisplayCompanyNew(true);
+        setIsUpdate(true)
+    }
+
+    const confirmDeleteCompany = (rowData) => {
+        confirmDialog({
+          message: <p>Bạn có muốn xóa bản ghi này không?</p>,
+          header: <h6>Xác nhận xóa bản ghi</h6>,
+          icon: 'pi pi-info-circle',
+          acceptClassName: 'p-button-danger',
+          accept: () => {deleteCompany(rowData)},
+        });
+    };
+
+    const deleteCompany = async(params) => {
+        try {
+            setLoading(true);
+                await CompanyService.deleteCompany(parseInt(params?.id))
+                setFlagChange(!flagChange);
+                toast.current.show({ severity: 'success', summary: 'Success', detail: 'Delete Success', life: 5000 });
+        } catch(error) {
+            toast.current.show({
+                severity: "error",
+                summary: 'error',
+                detail: error?.response?.data?.errors,
+                life: 5000,
+            });
+        } finally {
+            setLoading(false);
+        } 
+    }   
+
+    const actionBodyTemplate = (rowData) => {
+        return (
+            <div className="actions" >
+                <Button icon="pi pi-pencil" 
+                    className="p-button-rounded p-button-success p-mr-2" 
+                    onClick={() => editCompany(rowData)} 
+                />
+                <Button icon="pi pi-trash" 
+                    className="p-button-rounded p-button-warning" 
+                    onClick={() => confirmDeleteCompany(rowData)} 
+                />
+            </div>
+          
+      );
+    }
+
+    const linkTemplate = (data, props) => {
+        return (
+          <>
+            <a
+                href={`#/company-detail/${data["id"]}`}
+                style={{ color: "#2196f3" }}
+            >
+                {data[props.field]}
+            </a>
+          </>
+        );
+    };
     
         return (
             <div>
-                <main>
-                    {/* form add new Company
-                    <div className="modal fade" id="formCompany" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div className="modal-dialog">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title" id="exampleModalLabel">Company Infomation</h5>
-                                    <br />
-                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div className="modal-body">
-                                    <form>
-                                        <div className="mb-3">
-                                            <label for="code" className="form-label">Name</label>
-                                            <input value={this.state.name} type="text" onChange={(event) => this.isChange(event)} name="name" className="form-control" id="name" />
-                                        </div>
-                                        <div className="mb-3">
-                                            <label for="name" className="form-label">Tax Code</label>
-                                            <input value={this.state.taxCode} type="text" onChange={(event) => this.isChange(event)} name="taxCode" className="form-control" id="taxCode" />
-                                        </div>
-                                        <div className="mb-3">
-                                            <label for="dateOfBirth" className="form-label">Authorized Capital</label>
-                                            <input value={this.state.authorizedCapital} type="text" onChange={(event) => this.isChange(event)} name="authorizedCapital" className="form-control" id="authorizedCapital" />
-                                        </div>
-                                        <div className="mb-3">
-                                            <label for="address" className="form-label">Field Of Activity</label>
-                                            <input value={this.state.fieldOfActivity} type="text" onChange={(event) => this.isChange(event)} name="fieldOfActivity" className="form-control" id="fieldOfActivity" />
-                                        </div>
-                                        <div className="mb-3">
-                                            <label for="phone" className="form-label">Floor</label>
-                                            <input value={this.state.floor} type="text" onChange={(event) => this.isChange(event)} name="floor" className="form-control" id="floor" />
-                                        </div>
-                                        <div className="mb-3">
-                                            <label for="position" className="form-label">Hotline</label>
-                                            <input value={this.state.hotline} type="text" onChange={(event) => this.isChange(event)} name="hotline" className="form-control" id="hotline" />
-                                        </div>
-                                        <div className="mb-3">
-                                            <label for="level" className="form-label">Area</label>
-                                            <input value={this.state.area} type="text" onChange={(event) => this.isChange(event)} name="area" className="form-control" id="area" />
-                                        </div>
-                                    </form>
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    {this.changeButton(this.state.id)}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="container-fluid px-4">
-                        <h1 className="mt-1">Companies Table</h1>
-                        <br />
-                        <div className="card mb-4">
-                            <div className="card-body">
-                                <div className="row">
-                                    <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                                        <button type="button" className="btn btn btn-success" data-bs-toggle="modal" data-bs-target="#formCompany">Add new Company</button>
-                                    </div>
-                                    <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                        <form className="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" >
-                                            <div className="input-group">
-                                                <input onChange={(event) => this.getName(event)} className="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                                                <button onClick={() => this.searchName(this.state.name)} className="btn btn-primary" id="btnNavbarSearch" type="button"><i className="fas fa-search"></i></button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card mb-4">
-                            <div className="card-header">
-                                <i className="fas fa-table me-1"></i>
-                                DataTable Company
-                            </div>
-                            <div className="card-body">
-                                <table className="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>TaxCode</th>
-                                            <th>Authorized capital</th>
-                                            <th>Activity</th>
-                                            <th>Quantity</th>
-                                            <th>Floor</th>
-                                            <th>Phone Number</th>
-                                            <th>Address</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            this.state.companies.map((company) => (
-                                                <tr key={company.id}>
-                                                    <td> {company.name} </td>
-                                                    <td> {company.taxCode} </td>
-                                                    <td> {company.authorizedCapital} </td>
-                                                    <td> {company.fieldOfActivity} </td>
-                                                    <td> {company.numberOfEmployee} </td>
-                                                    <td> {company.floor} </td>
-                                                    <td> {company.hotline} </td>
-                                                    <td> {company.area} </td>
-                                                    <td>
-                                                        <button type="button" className="btn btn-danger" onClick={() => this.deleteCompany(company.id)}>Delete</button>
-                                                        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#formCompany" onClick={() => this.getCompany(company)}>Edit</button>
-                                                        <button type="button" className="btn btn-warning">
-                                                            <a id="viewDetail" href={`/company-detail/${company.id}`}>view Detail</a>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            ))
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div> */}
-                </main>
+                {displayCompanyNew && 
+                    <AddCompany 
+                        display={displayCompanyNew} 
+                        setDisplay={setDisplayCompanyNew} 
+                        handleHide={handleHideCompanyNewDialog}
+                        toast={toast}
+                        flagChange={flagChange}
+                        setFlagChange={setFlagChange}
+                        setLoading={setLoadingPage}
+                        loading={loadingPage}
+                        setCompanies={setCompanies}
+                        isUpdate={isUpdate}
+                        companyToUpdate={companyToUpdate}
+                    />
+                }
                 <div className="card">
-                    <DataTable value={companies} scrollable >
-                        <Column field="name" header="Name" filter filterMatchMode="contains" style={{width: '160px'}}></Column>
-                        <Column field="taxCode" header="TaxCode" filter filterMatchMode="contains" style={{width: '160px'}}></Column>
-                        <Column field="authorizedCapital" header="Authorized capital" sortable body={numberBody} style={{width: '170px'}}></Column>
-                        <Column field="fieldOfActivity" header="Activity" filter filterMatchMode="contains" style={{width: '160px'}}></Column>
-                        <Column field="numberOfEmployee" header="Quantity" sortable body={numberBody} style={{width: '160px'}}></Column>
-                        <Column field="floor" header="Floor" sortable body={numberBody} style={{width: '160px'}}></Column>
-                        <Column field="hotline" header="Phone Number" style={{width: '160px'}} filter filterMatchMode="contains"></Column>
-                        <Column field="area" header="Address" filter filterMatchMode="contains" style={{width: '160px'}}></Column>
-                        <Column header="Action" style={{width: '160px'}}></Column>
+                    <Toolbar left={leftContents} right={rightContents} />
+                    <DataTable value={companies} loading={loading} rows={10} scrollable >
+                        <Column field="name" header="Tên" filter filterMatchMode="contains" style={{width: '160px'}} body={linkTemplate}></Column>
+                        <Column field="taxCode" header="Mã số thuế" filter filterMatchMode="contains" style={{width: '160px'}}></Column>
+                        <Column field="authorizedCapital" header="Vốn điều lệ" sortable body={numberBody} style={{width: '170px'}}></Column>
+                        <Column field="fieldOfActivity" header="Lĩnh vực" filter filterMatchMode="contains" style={{width: '160px'}}></Column>
+                        <Column field="numberOfEmployee" header="SL nhân viên" sortable body={numberBody} style={{width: '160px'}}></Column>
+                        <Column field="floor" header="Địa chỉ" filter filterMatchMode="contains"  style={{width: '160px'}}></Column>
+                        <Column field="hotline" header="Số điện thoại" style={{width: '160px'}} filter filterMatchMode="contains"></Column>
+                        <Column field="area" header="Diện tích" body={numberBody}  sortable style={{width: '160px'}}></Column>
+                        <Column  body={actionBodyTemplate} style={{ width: '120px' }} />
                     </DataTable>
                 </div>
+                <Loading visible={loadingPage} onHide={() => setLoadingPage(false)} />
             </div>
         );
     }

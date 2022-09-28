@@ -18,8 +18,15 @@ class CompanyService{
         return axios.delete(COMPANY_API_URL + '/delete/' + id)
     }
 
-    searchByName(name){
-        return axios.get(COMPANY_API_URL + '/search?name='+ name);
+    createUsedInfrastructure(params){
+        return axios.post(COMPANY_API_URL +'/' + params.company_id + '/add/infrastructure/' + params.infrastructure_id + '/' + params.quantity, params)
+    }
+
+    updateUsedInfrastructure(companyId, id, params){
+        return axios.put(COMPANY_API_URL +'/' + companyId + '/infrastructure/update/' + id, params)
+    }
+    deleteUsedInfrastructure(company_id,infrastructure_id){
+        return axios.delete(COMPANY_API_URL +'/' + company_id + '/infrastructure/delete/' + infrastructure_id)
     }
 
 }

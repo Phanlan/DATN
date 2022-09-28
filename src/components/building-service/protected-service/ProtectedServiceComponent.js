@@ -1,146 +1,102 @@
-import React, { Component } from 'react';
+import { Button } from 'primereact/button';
+import { Toolbar } from 'primereact/toolbar';
+import React, { useContext, useEffect, useState } from 'react';
+import { ToastContext } from '../../../App';
+import { Loading } from '../../common/Loading';
+import { NumberFormat } from '../../utils/NumberFormat';
+import { FormUpdate } from '../FormUpdate';
 import ProtectedServiceService from "./ProtectedServiceService";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
-class ProtectedService extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            currentProtectedService: {
-                name: "",
-                price: 0,
-                any: "bao ve",
-            },
-            newProtectedService : {
-                name: "",
-                price: 0,
-                any: "bao ve",
-            },
+export const ProtectedService = () => {
+    const [displayServiceNew, setDisplayServiceNew] = useState(false);
+    const toast = useContext(ToastContext);
+    const [flagChange, setFlagChange] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [loadingPage, setLoadingPage] = useState(false);
+    const [currentProtectedService, setCurrentProtectedService] = useState({});
+    useEffect(() => {
+        try{
+            setLoading(true);
+            ProtectedServiceService.getCurrentProtectedService().then((response) => {
+                if(response.data.code !== 404) {
+                    setCurrentProtectedService(response.data.data);
+                }
+            });
+        }catch(error) {
+            toast.current.show({
+                severity: "error",
+                summary: 'error',
+                detail: error?.response?.data?.errors,
+                life: 5000,
+            });
+        }finally{
+            setLoading(false)
         }
-        toast.configure();
+        
+    }, [flagChange]) // eslint-disable-line react-hooks/exhaustive-deps
+    const handleHideServiceNewDialog = () => {
+        setDisplayServiceNew(false);
     }
-    componentDidMount() {
-        ProtectedServiceService.getCurrentProtectedService().then((response) => {
-            if(response.data.code !== 404) {
-                this.setState({currentProtectedService: response.data.data});
-                this.setState({newProtectedService: response.data.data})
+    const leftContents = (
+        <h5 className="mt-4">Dịch vụ bảo vệ</h5>
+    )
+
+    const rightContents = (
+        <>
+            <Button
+            label='Cập nhật'
+            className="p-button-outlined p-mr-2"
+            onClick={() => {setDisplayServiceNew(true);}}
+            />
+        </>
+    );
+    return (
+        <div>
+            {displayServiceNew && 
+                <FormUpdate 
+                    display={displayServiceNew} 
+                    setDisplay={setDisplayServiceNew} 
+                    handleHide={handleHideServiceNewDialog}
+                    toast={toast}
+                    flagChange={flagChange}
+                    setFlagChange={setFlagChange}
+                    setLoading={setLoadingPage}
+                    loading={loadingPage}
+                    setCurrentService={setCurrentProtectedService}
+                    currentService={currentProtectedService}
+                    service= 'protect'
+                />
             }
-        });
-    }
-
-    handleChanged = (event) => {
-        let protectedService = this.state.newProtectedService;
-        const name = event.target.name;
-        const value = event.target.value;
-        if(name === "name") {
-            protectedService.name = value;
-        } else if(name === "price"){
-            protectedService.price = value;
-        }
-        else if(name === "any"){
-            protectedService.any = value;
-        }
-        this.setState( {
-            newProtectedService: protectedService
-        })
-    }
-
-
-    addNewProtectedService() {
-        if (this.state.newProtectedService.name === "" || this.state.newProtectedService.price === "" || this.state.newProtectedService.any === "") {
-            toast.error('Please fill all the empty!!');
-        } else {
-        ProtectedServiceService.createProtectedService(this.state.newProtectedService)
-            .then(() => this.componentDidMount());
-        toast.success('Updated Protected Service successfully!!!');
-        }
-    }
-
-    render() {
-        return (
-            <div>
-                <div className="modal fade" id="formProtectedService" tabIndex="-1" aria-labelledby="exampleModalLabel"
-                     aria-hidden="true">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLabel">Protected Service Information</h5>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"/>
-                            </div>
-                            <div className="modal-body">
-                                <form>
-                                    <div className="mb-3">
-                                        <label htmlFor="name" className="form-label">Name</label>
-                                        <input type="text" onChange={event => this.handleChanged(event)} className="form-control" name="name" id="name"
-                                               value={this.state.newProtectedService.name}/>
-                                    </div>
-                                    <div className="mb-3">
-                                        <label htmlFor="price" className="form-label">Price</label>
-                                        <input type="number" onChange={event => this.handleChanged(event)} className="form-control"  name="price" id="price"
-                                               value={this.state.newProtectedService.price}/>
-                                    </div>
-                                    <div className="mb-3">
-                                        <label htmlFor="times" className="form-label">Other</label>
-                                        <input type="number"  onChange={event => this.handleChanged(event)} className="form-control"  name="any" id="any"
-                                               value={this.state.newProtectedService.time}/>
-                                    </div>
-                                </form>
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close
-                                </button>
-                                <button type="button" className="btn btn-primary" data-bs-dismiss="modal"
-                                        onClick={(event) => this.addNewProtectedService(event)}>Update
-                                </button>
-                            </div>
+                <div className="container-fluid px-4">
+                    
+                    <Toolbar left={leftContents} right={rightContents} />
+                    <div className="card mb-4" loading={loading}>
+                        <div className="card-body">
+                            <table className="table table-bordered text-center">
+                                <tbody>
+                                <tr>
+                                    <td> <b>Tên:</b></td>
+                                    <td>{currentProtectedService.name}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Giá:</b></td>
+                                    <td>{<NumberFormat value={currentProtectedService.price} />} vnđ</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Tần suất</b></td>
+                                    <td>Luôn luôn</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Bắt buộc:</b></td>
+                                    <td>Có</td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-                <main>
-                    <div className="container-fluid px-4">
-                        <h1 className="mt-4">Protected Service</h1>
-                        <div className="card mb-4">
-                            <div className="card-body">
-                                <button type="button" className="btn btn btn-success" data-bs-toggle="modal"
-                                        data-bs-target="#formProtectedService">Update
-                                </button>
-                            </div>
-                        </div>
-                        <div className="card mb-4">
-                            <div className="card-header">
-                            Protected Service Information
-                            </div>
-                            <div className="card-body">
-                                <table className="table table-bordered text-center">
-                                    <tbody>
-                                    <tr>
-                                        <td> <b>Name:</b></td>
-                                        <td>{this.state.currentProtectedService.name}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Price:</b></td>
-                                        <td>{this.state.currentProtectedService.price} vnđ</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Period</b></td>
-                                        <td>always</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Obligatory:</b></td>
-                                        <td>Yes</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-            </div>
-        );
-    }
-
+                <Loading visible={loadingPage} onHide={() => setLoadingPage(false)} />
+        </div>
+    );
 }
 
-export default ProtectedService;

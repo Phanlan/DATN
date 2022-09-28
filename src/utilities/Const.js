@@ -4,11 +4,10 @@ export default {
     BaseURL: 'http://localhost:8080',
     // BaseURL: 'http://10.10.5.232:8080',
     //BaseURL: 'https://gstest.olbius.com',
-    // Login: '/rest/s1/gsources/login',
     // Logout: '/rest/logout',
 
     // gsources common api
-    GetCompany: '/public-api/v1.0.0/company',
+    Company: '/public-api/v1.0.0/company',
   },
   RESPONSE_CODES: {
     SUCCESS: {

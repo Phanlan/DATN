@@ -14,14 +14,6 @@ class CompanyEmployeeService{
     deleteCompanyEmployee(companyId, id){
         return axios.delete(COMPANYEMPLOYEE_API_URL + companyId + '/employee/delete/' + id)
     }
-
-    getEmployeeByCompanyId(companyId){
-        return axios.get(COMPANYEMPLOYEE_API_URL  + companyId + '/employee');
-    }
-
-    searchByName(name, companyId){
-        return axios.get(COMPANYEMPLOYEE_API_URL + companyId + '/employee/search?name='+ name);
-    }
     
     getCompanyById(companyId){
         return axios.get(COMPANYEMPLOYEE_API_URL  + companyId);
@@ -37,6 +29,10 @@ class CompanyEmployeeService{
 
     deleteService(companyId, serviceId){
         return axios.delete(COMPANYEMPLOYEE_API_URL + companyId + '/used-service/delete/' + serviceId);
+    }
+
+    createUsedElectricWater(companyId, usedElectricWater){
+        return axios.post(COMPANYEMPLOYEE_API_URL + companyId + '/used_electric_water/create', usedElectricWater)
     }
 
 }
